@@ -1,6 +1,8 @@
 Jimmy Neuron
 ============
 
+[![Build Status](https://travis-ci.org/Harenome/jimmy-neuron.svg?branch=master)](https://travis-ci.org/Harenome/jimmy-neuron)
+
 Projet d'Intelligence Artificielle, L3S6 Informatique, Université de Strasbourg.
 Il s'agit d'implémenter un petit réseau de neurones.
 
@@ -40,6 +42,11 @@ $ cd /usr/bin && ln -s cxxtestgen.py cxxtestgen
 $ apt-get update
 $ apt-get install cxxtest
 ```
+
+Builds
+------
+
+```master```: [![Build Status](https://travis-ci.org/Harenome/jimmy-neuron.svg?branch=master)](https://travis-ci.org/Harenome/jimmy-neuron)
 
 License
 -------
