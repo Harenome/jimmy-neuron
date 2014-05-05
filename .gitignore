@@ -1,0 +1,13 @@
+# C++
+*.o
+*.a
+
+# Misc.
+*.old
+*~
+
+# Various dirs.
+doc/
+obj/
+bin/
+lib/

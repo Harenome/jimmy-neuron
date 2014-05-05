@@ -1,0 +1,11 @@
+language: cpp
+
+compiler:
+    - g++
+before_install:
+    - sudo add-apt-repository -y ppa:dhart/ppa
+    - sudo apt-get update -q
+    - sudo apt-get -y install cxxtest
+    - sudo ln -s /usr/bin/cxxtestgen.py /usr/bin/cxxtestgen
+script:
+    - make && make tests
