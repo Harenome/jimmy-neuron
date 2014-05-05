@@ -139,6 +139,16 @@ public:
      */
     std::istream & read_from (std::istream & is);
 
+    /**
+     * \brief Initialiser les listes à 2 entrées.
+     */
+    static void init_lists (void);
+
+    static std::list<bool> FALSE_FALSE;     /**<- Faux, faux. */
+    static std::list<bool> FALSE_TRUE;      /**<- Faux, vrai. */
+    static std::list<bool> TRUE_FALSE;      /**<- Vrai, faux. */
+    static std::list<bool> TRUE_TRUE;       /**<- Vrai, vrai. */
+
 private:
     neuron _out;                    /**<- Neurone de sortie. */
     std::vector<neuron> _head;      /**<- Neurones de tête. */

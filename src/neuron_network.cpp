@@ -15,6 +15,34 @@
 #include "neuron_network.hpp"
 
 ////////////////////////////////////////////////////////////////////////////////
+// Fonctions statiques.
+////////////////////////////////////////////////////////////////////////////////
+
+std::list<bool> neuron_network::FALSE_FALSE;
+std::list<bool> neuron_network::FALSE_TRUE;
+std::list<bool> neuron_network::TRUE_FALSE;
+std::list<bool> neuron_network::TRUE_TRUE;
+
+void neuron_network::init_lists (void)
+{
+    neuron_network::FALSE_FALSE.clear ();
+    neuron_network::FALSE_FALSE.push_back (false);
+    neuron_network::FALSE_FALSE.push_back (false);
+
+    neuron_network::FALSE_TRUE.clear ();
+    neuron_network::FALSE_TRUE.push_back (false);
+    neuron_network::FALSE_TRUE.push_back (true);
+
+    neuron_network::TRUE_FALSE.clear ();
+    neuron_network::TRUE_FALSE.push_back (true);
+    neuron_network::TRUE_FALSE.push_back (false);
+
+    neuron_network::TRUE_TRUE.clear ();
+    neuron_network::TRUE_TRUE.push_back (true);
+    neuron_network::TRUE_TRUE.push_back (true);
+}
+
+////////////////////////////////////////////////////////////////////////////////
 // Constructeurs.
 ////////////////////////////////////////////////////////////////////////////////
 
