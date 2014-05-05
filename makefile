@@ -40,8 +40,8 @@ tests: runner.o libjimmyneuron.a | bin_dir
 		$(CC) $(FLAGS_LIB) -o $(PATH_BIN)/runner $(PATH_OBJ)/runner.o -ljimmyneuron
 		@bin/runner
 
-runner.cpp: test_neuron.hpp
-		cd $(PATH_TESTS) && cxxtestgen --error-printer -o runner.cpp test_neuron.hpp
+runner.cpp: test_neuron.hpp test_neuron_network.hpp
+		cd $(PATH_TESTS) && cxxtestgen --error-printer -o runner.cpp test_neuron.hpp test_neuron_network.hpp
 
 runner.o: runner.cpp | obj_dir
 		$(CC) $(FLAGS_CC) $(FLAGS_INCLUDE) -o $(PATH_OBJ)/runner.o -c $(PATH_TESTS)/runner.cpp

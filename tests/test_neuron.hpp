@@ -44,7 +44,7 @@ private:
         return std::fabs (a - b) < std::numeric_limits<double>::epsilon ();
     }
 
-    static inline long double _accumulate (const std::vector<double> weights, const std::list<bool> & inputs)
+    static inline long double _accumulate (const std::vector<double> & weights, const std::list<bool> & inputs)
     {
         long double accumulator = 0.0;
 
