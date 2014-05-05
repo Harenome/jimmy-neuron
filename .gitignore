@@ -6,6 +6,9 @@
 *.old
 *~
 
+# CxxTests
+tests/*.cpp
+
 # Various dirs.
 doc/
 obj/

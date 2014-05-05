@@ -57,7 +57,11 @@ bin_dir:
 doc:
 		@doxygen
 
-clean:
+clean: clean_basic clean_tests
+		@echo "Clean."
+
+cleanbasic: clean_basic
+clean_basic:
 		@rm -rf $(PATH_OBJ) $(PATH_LIB) $(PATH_BIN)
 
 cleandoc: clean_doc
@@ -75,7 +79,7 @@ clean_archives:
 
 cleanall: clean_all
 clean_all: clean clean_doc clean_tests clean_archives
-		@echo "Clean."
+		@echo "Super clean."
 
 archive:
 		@tar -cvzf $(shell basename `pwd`)_$(shell date "+%Y-%m-%d-%H-%M-%S").tar.gz $(PATH_SRC) $(PATH_INCLUDE) $(PATH_TESTS) $(MISC_FILES)
