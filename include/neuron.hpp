@@ -21,6 +21,8 @@
 #include <ostream>
 #include <istream>
 
+#include "utilities.hpp"
+
 ////////////////////////////////////////////////////////////////////////////////
 // Typedefs.
 ////////////////////////////////////////////////////////////////////////////////
@@ -137,6 +139,16 @@ public:
      */
     neuron_const_iterator end (void) const;
 
+    /**
+     * \brief Déterminer si un neurone est égal à un autre neurone.
+     * \param n Neurone à comparer.
+     * \retval true Si les neurones sont égaux.
+     * \retval false Sinon.
+     * Deux neurones sont considérés égaux si leurs nombre de poids sont égaux,
+     * et si leurs poids de même indices sont égaux.
+     */
+    bool equals (const neuron & n) const;
+
     ////////////////////////////////////////////////////////////////////////////
     // Modificateurs.
     ////////////////////////////////////////////////////////////////////////////
@@ -191,6 +203,34 @@ private:
 ////////////////////////////////////////////////////////////////////////////////
 // Fonctions amies.
 ////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * \brief Opérateur \c ==.
+ * \param a Neurone 1.
+ * \param b Neurone 2.
+ * \retval true Si les neurones sont égaux.
+ * \retval false Sinon.
+ * \relates neuron
+ * \sa neuron::equals
+ */
+inline bool operator== (const neuron & a, const neuron & b)
+{
+    return a.equals (b);
+}
+
+/**
+ * \brief Opérateur \c !=.
+ * \param a Neurone 1.
+ * \param b Neurone 2.
+ * \retval true Si les neurones sont différents.
+ * \retval false Sinon.
+ * \relates neuron
+ * \sa neuron::equals
+ */
+inline bool operator!= (const neuron & a, const neuron & b)
+{
+    return ! operator== (a, b);
+}
 
 /**
  * \brief Échanger deux neurones.

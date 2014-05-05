@@ -107,6 +107,17 @@ neuron_size_type neuron::weight_number (void) const
     return _weights.size ();
 }
 
+bool neuron::equals (const neuron & n) const
+{
+    bool success = weight_number () == n.weight_number ();
+
+    if (success)
+        for (unsigned int i = 0; success && i < weight_number (); ++i)
+            success = utilities::double_equals (operator[] (i), n[i]);
+
+    return success;
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 // Modificateurs.
 ////////////////////////////////////////////////////////////////////////////////

@@ -15,23 +15,6 @@
 #include "neuron_network.hpp"
 
 ////////////////////////////////////////////////////////////////////////////////
-// Variables et fonctions statiques.
-////////////////////////////////////////////////////////////////////////////////
-
-const double neuron_network::_DEFAULT_EPSILON = std::numeric_limits<double>::epsilon ();
-double neuron_network::_EPSILON = neuron_network::_DEFAULT_EPSILON;
-
-double neuron_network::epsilon (void)
-{
-    return neuron_network::_EPSILON;
-}
-
-void neuron_network::set_epsilon (double epsilon)
-{
-    neuron_network::_EPSILON = epsilon;
-}
-
-////////////////////////////////////////////////////////////////////////////////
 // Constructeurs.
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -43,14 +26,6 @@ neuron_network::neuron_network (const neuron_network & x)
 : _out (x._out)
 {
     _head = x._head;
-}
-
-neuron_network::neuron_network (const neuron & a, const neuron & b, const neuron & c, const neuron & out)
-: _out (out)
-{
-    _head.push_back (a);
-    _head.push_back (b);
-    _head.push_back (c);
 }
 
 neuron_network::neuron_network (const std::vector<neuron> head, const neuron & out)
@@ -100,6 +75,11 @@ bool neuron_network::attempt (const std::list<bool> & inputs) const
 {
     std::list<bool> inner_inputs = _inner_inputs (inputs);
     return _out.attempt (inner_inputs);
+}
+
+neuron_network_size_type neuron_network::head_neurons_number (void) const
+{
+    return _head.size ();
 }
 
 ////////////////////////////////////////////////////////////////////////////////

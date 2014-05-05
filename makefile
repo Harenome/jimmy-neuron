@@ -27,20 +27,21 @@ all: main
 main: main.o libjimmyneuron.a | bin_dir
 		$(CC) $(FLAGS_LIB) -o $(PATH_BIN)/$@ $(PATH_OBJ)/main.o -ljimmyneuron
 
-neuron.o: neuron.cpp neuron.hpp
+utilities.o: utilities.cpp utilities.hpp
+neuron.o: neuron.cpp neuron.hpp utilities.hpp
 neuron_network.o: neuron_network.cpp neuron_network.hpp neuron.hpp
 main.o: main.cpp neuron.hpp
 
-libjimmyneuron.a: neuron.o neuron_network.o | lib_dir
-		ar -crv $(PATH_LIB)/libjimmyneuron.a $(PATH_OBJ)/neuron.o $(PATH_OBJ)/neuron_network.o
+libjimmyneuron.a: utilities.o neuron.o neuron_network.o | lib_dir
+		ar -crv $(PATH_LIB)/libjimmyneuron.a $(PATH_OBJ)/utilities.o $(PATH_OBJ)/neuron.o $(PATH_OBJ)/neuron_network.o
 		ranlib $(PATH_LIB)/libjimmyneuron.a
 
 tests: runner.o libjimmyneuron.a | bin_dir
 		$(CC) $(FLAGS_LIB) -o $(PATH_BIN)/runner $(PATH_OBJ)/runner.o -ljimmyneuron
 		@bin/runner
 
-runner.cpp: test_neuron.hpp
-		cd $(PATH_TESTS) && cxxtestgen --error-printer -o runner.cpp test_neuron.hpp
+runner.cpp: test_neuron.hpp test_neuron_network.hpp
+		cd $(PATH_TESTS) && cxxtestgen --error-printer -o runner.cpp test_neuron.hpp test_neuron_network.hpp
 
 runner.o: runner.cpp | obj_dir
 		$(CC) $(FLAGS_CC) $(FLAGS_INCLUDE) -o $(PATH_OBJ)/runner.o -c $(PATH_TESTS)/runner.cpp

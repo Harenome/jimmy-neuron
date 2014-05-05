@@ -12,6 +12,9 @@
  * To Public License, Version 2, as published by Sam Hocevar. See
  * http://www.wtfpl.net/ for more details.
  */
+#ifndef __TEST_NEURON_HPP__
+#define __TEST_NEURON_HPP__
+
 #include <list>
 #include <vector>
 #include <limits>
@@ -19,7 +22,6 @@
 #include <cxxtest/TestSuite.h>
 
 #include "neuron.hpp"
-
 
 /**
  * \brief Suite de tests pour \r neuron.
@@ -42,7 +44,7 @@ private:
         return std::fabs (a - b) < std::numeric_limits<double>::epsilon ();
     }
 
-    static inline long double _accumulate (const std::vector<double> weights, const std::list<bool> & inputs)
+    static inline long double _accumulate (const std::vector<double> & weights, const std::list<bool> & inputs)
     {
         long double accumulator = 0.0;
 
@@ -297,6 +299,70 @@ public:
     }
 
     /**
+     * \brief Test de neuron::equals
+     * \test neuron::equals
+     */
+    void test_equals (void)
+    {
+        for (unsigned int i = 0; i < _WEIGHTS_LENGTH; ++i)
+        {
+            neuron a (_weights[i]);
+
+            for (unsigned int j = 0; j < _WEIGHTS_LENGTH; ++j)
+            {
+                neuron b (_weights[j]);
+                bool equality = true;
+                for (unsigned int k = 0; equality && k < 2; ++k)
+                    equality = utilities::double_equals (_weights[i][k], _weights[j][k]);
+
+                TS_ASSERT_EQUALS (equality, a.equals (b))
+            }
+        }
+    }
+
+    /**
+     * \brief Test de operator==(const neuron &, const neuron &)
+     * \test operator==(const neuron &, const neuron &)
+     */
+    void test_operator_equals (void)
+    {
+        for (unsigned int i = 0; i < _WEIGHTS_LENGTH; ++i)
+        {
+            neuron a (_weights[i]);
+            for (unsigned int j = 0; j < _WEIGHTS_LENGTH; ++j)
+            {
+                neuron b (_weights[j]);
+                bool equality = true;
+                for (unsigned int k = 0; equality && k < 2; ++k)
+                    equality = utilities::double_equals (_weights[i][k], _weights[j][k]);
+
+                TS_ASSERT_EQUALS (equality, a == b)
+            }
+        }
+    }
+
+    /**
+     * \brief Test de operator!=(const neuron &, const neuron &)
+     * \test operator!=(const neuron &, const neuron &)
+     */
+    void test_operator_differs (void)
+    {
+        for (unsigned int i = 0; i < _WEIGHTS_LENGTH; ++i)
+        {
+            neuron a (_weights[i]);
+            for (unsigned int j = 0; j < _WEIGHTS_LENGTH; ++j)
+            {
+                neuron b (_weights[j]);
+                bool equality = true;
+                for (unsigned int k = 0; equality && k < 2; ++k)
+                    equality = utilities::double_equals (_weights[i][k], _weights[j][k]);
+
+                TS_ASSERT_DIFFERS (equality, a != b)
+            }
+        }
+    }
+
+    /**
      * \brief Test de neuron::add_weight
      * \test neuron::add_weight
      */
@@ -347,3 +413,4 @@ public:
 bool test_suite_neuron::_POSSIBLE_INPUTS[_POSSIBLE_INPUTS_NUMBER];
 double test_suite_neuron::_POSSIBLE_WEIGHTS[_POSSIBLE_WEIGHTS_NUMBER];
 
+#endif /* __TEST_NEURON_HPP__ */
