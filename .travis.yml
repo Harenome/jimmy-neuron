@@ -9,3 +9,6 @@ before_install:
     - sudo ln -s /usr/bin/cxxtestgen.py /usr/bin/cxxtestgen
 script:
     - make && make tests
+notifications:
+    on_success: change
+    on_failure: change
