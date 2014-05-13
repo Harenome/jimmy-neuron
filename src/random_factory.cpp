@@ -18,7 +18,7 @@
 // Fonctions et variables statiques.
 ////////////////////////////////////////////////////////////////////////////////
 
-const double random_factory::DEFAULT_RANGE = 2.0;
+const double random_factory::DEFAULT_RANGE = 10.0;
 
 neuron random_factory::random_neuron (unsigned int weight_number, double weight_range)
 {
@@ -35,7 +35,7 @@ neuron_network random_factory::random_neuron_network (unsigned int weight_number
     std::vector<neuron> head;
     for (unsigned int i = 0; i < head_neurons_number; ++i)
         head.push_back (random_factory::random_neuron (weight_number, weight_range));
-    neuron out = random_factory::random_neuron (weight_number, weight_range);
+    neuron out = random_factory::random_neuron (head_neurons_number, weight_range);
     neuron_network network (head, out);
 
     return network;

@@ -58,18 +58,19 @@ void evolution::set_probabilities (unsigned int cross_over, unsigned int mutatio
 
 void evolution::randomly_mutate (neuron_network & n, unsigned int weight_number, double weight_range)
 {
-    neuron new_neuron = random_factory::random_neuron (weight_number, weight_range);
     int dice = utilities::random_int (0, n.head_neurons_number () + 1);
-    int head_number = n.head_neurons_number ();
+    int head_size = n.head_neurons_number ();
 
-    if (dice < head_number)
+    if (dice < head_size)
     {
+        neuron new_neuron = random_factory::random_neuron (weight_number, weight_range);
         std::vector<neuron> head = n.head_neurons ();
         head[dice]  = new_neuron;
         n.set_head_neurons (head);
     }
     else
     {
+        neuron new_neuron = random_factory::random_neuron (head_size, weight_range);
         n.set_out_neuron (new_neuron);
     }
 }
