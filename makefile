@@ -35,10 +35,11 @@ neuron_network_fitness.o: neuron_network_fitness.cpp neuron_network_fitness.hpp 
 random_factory.o: random_factory.cpp random_factory.hpp utilities.hpp neuron.hpp neuron_network.hpp
 evolution.o: evolution.cpp evolution.hpp utilities.hpp neuron.hpp neuron_network.hpp truth_table.hpp neuron_network_fitness.hpp random_factory.hpp
 colony.o: colony.cpp colony.hpp utilities.hpp neuron.hpp neuron_network.hpp neuron_network_fitness.hpp evolution.hpp random_factory.hpp
+plot.o: plot.cpp plot.hpp
 main.o: main.cpp neuron.hpp
 
-libjimmyneuron.a: utilities.o neuron.o neuron_network.o truth_table.o neuron_network_fitness.o random_factory.o evolution.o colony.o | lib_dir
-		ar -crv $(PATH_LIB)/libjimmyneuron.a $(PATH_OBJ)/utilities.o $(PATH_OBJ)/neuron.o $(PATH_OBJ)/neuron_network.o $(PATH_OBJ)/truth_table.o $(PATH_OBJ)/neuron_network_fitness.o $(PATH_OBJ)/random_factory.o $(PATH_OBJ)/evolution.o $(PATH_OBJ)/colony.o
+libjimmyneuron.a: utilities.o neuron.o neuron_network.o truth_table.o neuron_network_fitness.o random_factory.o evolution.o colony.o plot.o | lib_dir
+		ar -crv $(PATH_LIB)/libjimmyneuron.a $(PATH_OBJ)/utilities.o $(PATH_OBJ)/neuron.o $(PATH_OBJ)/neuron_network.o $(PATH_OBJ)/truth_table.o $(PATH_OBJ)/neuron_network_fitness.o $(PATH_OBJ)/random_factory.o $(PATH_OBJ)/evolution.o $(PATH_OBJ)/colony.o $(PATH_OBJ)/plot.o
 		ranlib $(PATH_LIB)/libjimmyneuron.a
 
 tests: runner.o libjimmyneuron.a | bin_dir
