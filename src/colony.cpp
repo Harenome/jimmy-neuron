@@ -89,6 +89,20 @@ void colony::turn (void)
 
 }
 
+double colony::best_fitness (void) const
+{
+    return _fitness.fitness_of (_networks[0]);
+}
+
+double colony::mean_fitness (void) const
+{
+    double mean = 0.0;
+    for (unsigned int i = 0; i < _population_size; ++i)
+        mean += _fitness.fitness_of (_networks[i]);
+
+    return mean / _population_size;
+}
+
 void colony::set_fitness (const neuron_network_fitness & fitness)
 {
     _fitness = fitness;

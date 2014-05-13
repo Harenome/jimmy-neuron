@@ -142,10 +142,10 @@ neuron_network & neuron_network::operator= (neuron_network x)
 
 std::ostream & neuron_network::write_to (std::ostream & os) const
 {
-    os << "Out: " << _out << std::endl;
-    os << "Head: " << _head.size () << " neurons:" << std::endl;
+    os << "Out:\n\t" << _out << std::endl;
+    os << "Head: " << _head.size () << " neurons:";
     for (neuron_network_const_iterator it = _head.begin (); it != _head.end (); ++it)
-        os << " " << * it;
+        os << "\n\t" << * it;
     return os;
 }
 

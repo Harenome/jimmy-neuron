@@ -38,12 +38,14 @@ int main (int argc, char ** argv)
     truth_table exclusive_or (false, true, true, false);
     neuron_network_fitness fitness (exclusive_or);
     colony c (fitness, 100);
-    while (! c.has_fit_network ())
+
+    for (unsigned int i = 0; ! c.has_fit_network () && i < 2000; ++i)
         c.turn ();
 
     neuron_network n = c.best_network ();
     std::cout << c.generations_count () << std::endl;
     std::cout << n << std::endl;
+
     std::cout << n.attempt (neuron_network::FALSE_FALSE) << std::endl;
     std::cout << n.attempt (neuron_network::FALSE_TRUE) << std::endl;
     std::cout << n.attempt (neuron_network::TRUE_FALSE) << std::endl;

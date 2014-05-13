@@ -40,6 +40,8 @@ public:
     void set_fitness (const neuron_network_fitness & fitness);
     bool has_fit_network (void) const;
     neuron_network best_network (void) const;
+    double best_fitness (void) const;
+    double mean_fitness (void) const;
     unsigned int generations_count (void) const;
     static const unsigned int DEFAULT_POPULATION_SIZE = 100;
 
