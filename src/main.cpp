@@ -15,6 +15,12 @@
 #include <iostream>
 #include <sysexits.h>
 
+#include "utilities.hpp"
+#include "truth_table.hpp"
+#include "neuron_network.hpp"
+#include "neuron_network_fitness.hpp"
+#include "colony.hpp"
+
 int main (int argc, char ** argv)
 {
     if (argc > 1)
@@ -25,6 +31,25 @@ int main (int argc, char ** argv)
     }
 
     std::cout << "Jimmy Neuron" << std::endl;
+
+    utilities::new_seed ();
+    neuron_network::init_lists ();
+
+    truth_table exclusive_or (false, true, true, false);
+    neuron_network_fitness fitness (exclusive_or);
+    colony c (fitness, 100);
+
+    for (unsigned int i = 0; ! c.has_fit_network () && i < 2000; ++i)
+        c.turn ();
+
+    neuron_network n = c.best_network ();
+    std::cout << c.generations_count () << std::endl;
+    std::cout << n << std::endl;
+
+    std::cout << n.attempt (neuron_network::FALSE_FALSE) << std::endl;
+    std::cout << n.attempt (neuron_network::FALSE_TRUE) << std::endl;
+    std::cout << n.attempt (neuron_network::TRUE_FALSE) << std::endl;
+    std::cout << n.attempt (neuron_network::TRUE_TRUE) << std::endl;
 
     return 0;
 }
