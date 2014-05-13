@@ -54,6 +54,4 @@ public:
     static const unsigned int DEFAULT_HEAD_NEURONS_NUMBER = 3;      /**<- Nombre de neurones de tête par défaut. */
 };
 
-const double random_factory::DEFAULT_RANGE = 2.0;
-
 #endif /* __RANDOM_FACTORY_HPP__ */

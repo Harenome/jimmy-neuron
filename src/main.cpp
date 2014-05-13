@@ -43,13 +43,8 @@ int main (int argc, char ** argv)
         c.turn ();
 
     neuron_network n = c.best_network ();
-    std::cout << c.generations_count () << std::endl;
+    std::cout << c.generations_count () << " generations" << std::endl;
     std::cout << n << std::endl;
-
-    std::cout << n.attempt (neuron_network::FALSE_FALSE) << std::endl;
-    std::cout << n.attempt (neuron_network::FALSE_TRUE) << std::endl;
-    std::cout << n.attempt (neuron_network::TRUE_FALSE) << std::endl;
-    std::cout << n.attempt (neuron_network::TRUE_TRUE) << std::endl;
 
     return 0;
 }
