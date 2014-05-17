@@ -31,9 +31,9 @@ public:
     colony (const colony & c);
     colony (const neuron_network_fitness & fitness,
         unsigned int population_size = colony::DEFAULT_POPULATION_SIZE,
+        double weight_range = random_factory::DEFAULT_RANGE,
         unsigned int weight_number = random_factory::DEFAULT_WEIGHT_NUMBER,
-        unsigned int head_neurons_number = random_factory::DEFAULT_HEAD_NEURONS_NUMBER,
-        double weight_range = random_factory::DEFAULT_RANGE
+        unsigned int head_neurons_number = random_factory::DEFAULT_HEAD_NEURONS_NUMBER
     );
     ~colony (void);
     void turn (void);
@@ -56,6 +56,9 @@ private:
 
     void _sort (void);
     void _purge (void);
+    void _clone (unsigned int i);
+    void _cross_over (long int i);
+    void _mutate (unsigned int i);
 };
 
 #endif /* __COLONY_HPP__ */

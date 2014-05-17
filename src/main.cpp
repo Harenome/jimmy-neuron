@@ -34,13 +34,17 @@ int main (int argc, char ** argv)
 
     utilities::new_seed ();
     neuron_network::init_lists ();
+    /* evolution::set_probabilities (100, 0, 0); */
 
     truth_table exclusive_or (false, true, true, false);
     neuron_network_fitness fitness (exclusive_or);
     colony c (fitness, 100);
 
     for (unsigned int i = 0; ! c.has_fit_network () && i < 2000; ++i)
+    {
         c.turn ();
+        std::cout << "Best: " << c.best_fitness () << ", Mean: " << c.mean_fitness () << std::endl;
+    }
 
     neuron_network n = c.best_network ();
     std::cout << c.generations_count () << " generations" << std::endl;

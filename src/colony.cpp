@@ -35,7 +35,7 @@ _weight_range (c._weight_range)
     _networks = c._networks;
 }
 
-colony::colony (const neuron_network_fitness & fitness, unsigned int population_size, unsigned int weight_number, unsigned int head_neurons_number, double weight_range)
+colony::colony (const neuron_network_fitness & fitness, unsigned int population_size, double weight_range, unsigned int weight_number, unsigned int head_neurons_number)
 : _generations_count (0),
 _population_size (population_size),
 _weight_number (weight_number),
@@ -55,6 +55,36 @@ colony::~colony (void)
 {
 }
 
+void colony::_clone (unsigned int i)
+{
+    neuron_network clone = evolution::clone (_networks[i]);
+    _networks.push_back (clone);
+}
+
+void colony::_cross_over (long int i)
+{
+    int a = i;
+    int b = i;
+
+    while (a == i)
+        a = utilities::random_int (0, _population_size);
+
+    while (b == i || b == a)
+        b = utilities::random_int (0, _population_size);
+
+    neuron_network & a_b = _networks[b];;
+    if (_fitness.compare_networks (_networks[a], _networks[b]) < 0)
+        a_b = _networks[a];
+
+    neuron_network son = evolution::cross_over (_networks[i], a_b);
+            _networks.push_back (son);
+}
+
+void colony::_mutate (unsigned int i)
+{
+    evolution::randomly_mutate (_networks[i], _weight_number, _weight_range);
+}
+
 void colony::turn (void)
 {
     _generations_count++;
@@ -63,28 +93,11 @@ void colony::turn (void)
     {
         evolution_action choice = evolution::choose_action ();
         if (choice == EVOLUTION_CLONE)
-        {
-            neuron_network clone = evolution::clone (_networks[i]);
-            _networks.push_back (clone);
-        }
+            _clone (i);
         else if (choice == EVOLUTION_CROSS_OVER)
-        {
-            int a = utilities::random_int (0, _population_size);
-            int b = utilities::random_int (0, _population_size);
-            while (a == b)
-                b = utilities::random_int (0, _population_size);
-
-            neuron_network & a_b = _networks[b];;
-            if (_fitness.compare_networks (_networks[a], _networks[b]) < 0)
-                a_b = _networks[a];
-
-            neuron_network son = evolution::cross_over (_networks[i], a_b);
-            _networks.push_back (son);
-        }
+            _cross_over (i);
         else if (choice == EVOLUTION_MUTATE)
-        {
-            evolution::randomly_mutate (_networks[i], _weight_number, _weight_range);
-        }
+            _mutate (i);
     }
 
 }
