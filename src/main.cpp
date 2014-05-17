@@ -21,6 +21,8 @@
 #include "neuron_network_fitness.hpp"
 #include "colony.hpp"
 
+static const unsigned int MAX_GENERATIONS = 2000;
+
 int main (int argc, char ** argv)
 {
     if (argc > 1)
@@ -32,15 +34,17 @@ int main (int argc, char ** argv)
 
     std::cout << "Jimmy Neuron" << std::endl;
 
+    /* Ne pas oublier les initialisations ! */
     utilities::new_seed ();
     neuron_network::init_lists ();
-    /* evolution::set_probabilities (100, 0, 0); */
-
     truth_table exclusive_or (false, true, true, false);
     neuron_network_fitness fitness (exclusive_or);
-    colony c (fitness, 100);
 
-    for (unsigned int i = 0; ! c.has_fit_network () && i < 2000; ++i)
+    /* evolution::set_probabilities (100, 0, 0); */
+    colony c (fitness, 100);
+    c.set_purge_strategy (COLONY_PURGE_RANDOMLY);
+
+    for (unsigned int i = 0; ! c.has_fit_network () && i < MAX_GENERATIONS; ++i)
     {
         c.turn ();
         std::cout << "Best: " << c.best_fitness () << ", Mean: " << c.mean_fitness () << std::endl;
