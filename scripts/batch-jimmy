@@ -1,0 +1,34 @@
+#!/bin/bash
+
+CPU_NUMBER=4
+TIMES=4
+
+if ! [[ -f "bin/jimmy-neuron" ]]; then
+    echo "Are you sure you ran \"make\"?" 1>&2;
+    exit 66
+fi
+
+for ARG in $*; do
+    if [[ ${ARG:0:11} = "--temp-file" ]]; then
+        echo "Please do not supply a temp file path to this script." 1>&2
+        exit 64
+    fi
+done
+
+if [[ $# -gt 0 ]]; then
+    if [[ ${1:0:8} = "--times=" ]]; then
+        TIMES=$(echo ${1:8} | sed 's/[^0-9]//g')
+    fi
+fi
+
+echo -e "Will be running jimmy-neuron $TIMES times.\n\n"
+
+rm -f /tmp/batch_jimmy_neuron*
+
+for i in $(seq $TIMES); do
+    bin/jimmy-neuron "$*" "--temp-file=/tmp/batch_jimmy_neuron_$$_$i"
+    # Les nombres aléatoires dépendent des secondes...
+    sleep 1
+done
+
+rm -f /tmp/batch_jimmy_neuron*
