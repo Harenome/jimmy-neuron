@@ -76,14 +76,25 @@ $ bin/jimmy-neuron --probabilities=15,15,70
 $ bin/jimmy-neuron --colony-size=10 --weight-range=1.5 --max-generations=3000
 ```
 
+Il est général préférable d'essayer de petites colonies et de petites fourchettes.
+```bash
+$ bin/jimmy-neuron --colony-size=10 --weight-range=2.0
+```
+
 ### Lancer plusieurs Jimmy Neuron d'affilée.
 ```bash
 $ make
-$ scripts/batch-jimmy-neuron [--times=N] [--jimmy-neuron-options]
+$ scripts/batch-jimmy [--times=N] [--jimmy-neuron-options]
 ```
+
 Le script accepte l'option ```--times``` pour déterminer le nombre de fois qu'il
 faut lancer Jimmy Neuron. Il accepte également toutes les options compatibles
 avec Jimmy Neuron, sauf l'option concernant le fichier temporaire.
+
+#### Exemples
+```bash
+$ scripts/batch-jimmy --times=10 --colony-size=10 --weight-range=2.0
+```
 
 Builds
 ------
