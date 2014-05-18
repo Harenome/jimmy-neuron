@@ -66,6 +66,7 @@ $ bin/jimmy-neuron [--option=valeur | --option=valeurs,avec,virgules]
   et clonage; dans cet ordre. Les valeurs doivent être séparées par des virgules.
   La somme des probabilités doit être égale à 100.
 - ```--weight-range=N``` : Changer la fourchette des poids.
+- ```--temp-file=path``` : Changer le chemin à utiliser pour le fichier temporaire.
 
 #### Exemples
 ```bash
@@ -74,6 +75,15 @@ $ bin/jimmy-neuron --max-generations=3000
 $ bin/jimmy-neuron --probabilities=15,15,70
 $ bin/jimmy-neuron --colony-size=10 --weight-range=1.5 --max-generations=3000
 ```
+
+### Lancer plusieurs Jimmy Neuron d'affilée.
+```bash
+$ make
+$ scripts/batch-jimmy-neuron [--times=N] [--jimmy-neuron-options]
+```
+Le script accepte l'option ```--times``` pour déterminer le nombre de fois qu'il
+faut lancer Jimmy Neuron. Il accepte également toutes les options compatibles
+avec Jimmy Neuron, sauf l'option concernant le fichier temporaire.
 
 Builds
 ------

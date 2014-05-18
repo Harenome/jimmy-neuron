@@ -111,3 +111,18 @@ void parse_cli::set_probabilities (int argc, char ** argv, unsigned int & cross_
         }
     }
 }
+
+void parse_cli::set_file_path (int argc, char ** argv, const char * option, std::string & value)
+{
+    std::string o (option);
+    parse_cli::set_file_path (argc, argv, o, value);
+}
+
+void parse_cli::set_file_path (int argc, char ** argv, const std::string & option, std::string & value)
+{
+    std::string argument;
+    if (parse_cli::option_is_given (argc, argv, option, argument))
+    {
+        value = argument;
+    }
+}
