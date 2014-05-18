@@ -12,7 +12,7 @@ FLAGS_CC = -std=c++98 -pedantic $(FLAGS_DBG)
 FLAGS_INCLUDE = -I$(PATH_INCLUDE) -I$(PATH_TESTS)
 FLAGS_LIB = -L$(PATH_LIB)
 
-MISC_FILES = makefile Doxyfile AUTHORS COPYING LICENSE README README.md sujet.pdf
+MISC_FILES = makefile Doxyfile AUTHORS COPYING LICENSE README README.md sujet.pdf reponses.markdown reponses.pdf
 
 vpath %.cpp $(PATH_SRC) $(PATH_TESTS)
 vpath %.hpp $(PATH_INCLUDE) $(PATH_TESTS)
@@ -62,6 +62,9 @@ lib_dir:
 bin_dir:
 		@mkdir -p $(PATH_BIN)
 
+rapport: clean_rapport
+		@pandoc rapport.markdown -o rapport.pdf
+
 doc:
 		@doxygen
 
@@ -89,9 +92,13 @@ cleantmp: clean_tmp
 clean_tmp:
 		@rm -rf /tmp/jimmy*neuron*
 
+cleanrapport: clean_rapport
+clean_rapport:
+		@rm -rf rapport.pdf
+
 cleanall: clean_all
-clean_all: clean clean_doc clean_tests clean_archives clean_tmp
+clean_all: clean clean_doc clean_tests clean_archives clean_tmp clean_rapport
 		@echo "Super clean."
 
-archive:
+archive: reponses
 		@tar -cvzf $(shell basename `pwd`)_$(shell date "+%Y-%m-%d-%H-%M-%S").tar.gz $(PATH_SRC) $(PATH_INCLUDE) $(PATH_TESTS) $(MISC_FILES) scripts
