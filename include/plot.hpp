@@ -49,7 +49,9 @@ public:
      * \param best_fitnesses Meilleurs fitnesses.
      * \param mean_fitnesses Moyennes.
      */
-    plot (const double_vector & best_fitnesses, const double_vector & mean_fitnesses);
+    plot (const double_vector & best_fitnesses,
+        const double_vector & mean_fitnesses,
+        const char * temporary_file_path = plot::DEFAULT_TEMP_FILE_PATH);
 
     /**
      * \brief Destructeur.
@@ -63,9 +65,16 @@ public:
      * \brief Lancer et afficher GNUPlot.
      */
     void display (void);
+
+    static const char * DEFAULT_TEMP_FILE_PATH;
+
 private:
-    double_vector _best;    /**<- Meilleures fitnesses. */
-    double_vector _mean;    /**<- Moyennes. */
+    double_vector _best;        /**<- Meilleures fitnesses. */
+    double_vector _mean;        /**<- Moyennes. */
+    const char * _temp_file_path;
+
+    void _write_to_temp_file (void);
+    void _run_gnuplot (void);
 };
 
 #endif /* __PLOT_HPP__ */
