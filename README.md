@@ -43,6 +43,38 @@ $ apt-get update
 $ apt-get install cxxtest
 ```
 
+Compilation
+-----------
+```bash
+$ make
+```
+
+Lancement
+---------
+### Lancement du programme
+```bash
+$ bin/jimmy-neuron [--option=valeur | --option=valeurs,avec,virgules]
+```
+
+### Options
+- ```--help``` : Afficher une aide.
+- ```--version``` : Afficher la version.
+- ```--colony-size=N``` : Fixer la taille maximale de la colonie à N.
+- ```--max-generations=N``` : Fixer le nombre maximal de générations (pour éviter
+  de boucler _ad vitam æternam_) à N..
+- ```--probabilities=N,O,P``` : Changer les probabilités de cross-over, mutation
+  et clonage; dans cet ordre. Les valeurs doivent être séparées par des virgules.
+  La somme des probabilités doit être égale à 100.
+- ```--weight-range=N``` : Changer la fourchette des poids.
+
+#### Exemples
+```bash
+$ bin/jimmy-neuron --colony-size=5
+$ bin/jimmy-neuron --max-generations=3000
+$ bin/jimmy-neuron --probabilities=15,15,70
+$ bin/jimmy-neuron --colony-size=10 --weight-range=1.5 --max-generations=3000
+```
+
 Builds
 ------
 

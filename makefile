@@ -19,12 +19,12 @@ vpath %.hpp $(PATH_INCLUDE) $(PATH_TESTS)
 vpath %.o $(PATH_OBJ)
 vpath %.a $(PATH_LIB)
 
-all: main
+all: jimmy-neuron
 
 %.o: %.cpp | obj_dir
 		$(CC) $(FLAGS_CC) $(FLAGS_INCLUDE) -o $(PATH_OBJ)/$@ -c $<
 
-main: main.o libjimmyneuron.a | bin_dir
+jimmy-neuron: main.o libjimmyneuron.a | bin_dir
 		$(CC) $(FLAGS_LIB) -o $(PATH_BIN)/$@ $(PATH_OBJ)/main.o -ljimmyneuron
 
 utilities.o: utilities.cpp utilities.hpp
