@@ -51,7 +51,7 @@ public:
      */
     plot (const double_vector & best_fitnesses,
         const double_vector & mean_fitnesses,
-        const char * temporary_file_path = plot::DEFAULT_TEMP_FILE_PATH);
+        const std::string & temporary_file_path = plot::DEFAULT_TEMP_FILE_PATH);
 
     /**
      * \brief Destructeur.
@@ -66,12 +66,12 @@ public:
      */
     void display (void);
 
-    static const char * DEFAULT_TEMP_FILE_PATH;
+    static const std::string DEFAULT_TEMP_FILE_PATH;
 
 private:
     double_vector _best;        /**<- Meilleures fitnesses. */
     double_vector _mean;        /**<- Moyennes. */
-    const char * _temp_file_path;
+    const std::string _temp_file_path;
 
     void _write_to_temp_file (void);
     void _run_gnuplot (void);

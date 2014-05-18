@@ -66,6 +66,7 @@ $ bin/jimmy-neuron [--option=valeur | --option=valeurs,avec,virgules]
   et clonage; dans cet ordre. Les valeurs doivent être séparées par des virgules.
   La somme des probabilités doit être égale à 100.
 - ```--weight-range=N``` : Changer la fourchette des poids.
+- ```--temp-file=path``` : Changer le chemin à utiliser pour le fichier temporaire.
 
 #### Exemples
 ```bash
