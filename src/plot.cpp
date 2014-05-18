@@ -14,7 +14,7 @@
  */
 #include "plot.hpp"
 
-const char * plot::DEFAULT_TEMP_FILE_PATH = "/tmp/jimmy_neuron.dat";
+const std::string plot::DEFAULT_TEMP_FILE_PATH ("/tmp/jimmy_neuron.dat");
 
 ////////////////////////////////////////////////////////////////////////////////
 // Constructeurs et destructeurs.
@@ -25,7 +25,7 @@ plot::plot (void)
 {
 }
 
-plot::plot (const double_vector & best_fitnesses, const double_vector & mean_fitnesses, const char * temporary_file_path)
+plot::plot (const double_vector & best_fitnesses, const double_vector & mean_fitnesses, const std::string & temporary_file_path)
 : _temp_file_path (temporary_file_path)
 {
     _best = best_fitnesses;
@@ -42,7 +42,7 @@ plot::~plot (void)
 
 void plot::_write_to_temp_file (void)
 {
-    std::ofstream output (_temp_file_path);
+    std::ofstream output (_temp_file_path.c_str ());
     for (size_t i = 0; i < _best.size (); ++i)
         output << i << " " << _best[i] << " " << _mean[i] << std::endl;
     output.close ();
@@ -65,7 +65,7 @@ void plot::_run_gnuplot (void)
         perror("popen");
     else
     {
-        fprintf(gnuplot, _gnuplot_options, _temp_file_path, _temp_file_path);
+        fprintf(gnuplot, _gnuplot_options, _temp_file_path.c_str (), _temp_file_path.c_str ());
         fflush(gnuplot);
         fclose(gnuplot);
     }

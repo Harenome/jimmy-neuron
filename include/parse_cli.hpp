@@ -89,6 +89,24 @@ public:
      * \param cloning Probabilité de clonage.
      */
     static void set_probabilities (int argc, char ** argv, unsigned int & cross_over, unsigned int & mutation, unsigned int & cloning);
+
+    /**
+     * \brief Modifier le chemin vers un fichier selon les arguments de la ligne de commande.
+     * \param argc Nombre d'arguments de la ligne de commande.
+     * \param argv Arguments de la ligne de commande.
+     * \param option Option recherchée.
+     * \param file_path Chemin.
+     */
+    static void set_file_path (int argc, char ** argv, const char * option, std::string & file_path);
+
+    /**
+     * \brief Modifier le chemin vers un fichier selon les arguments de la ligne de commande.
+     * \param argc Nombre d'arguments de la ligne de commande.
+     * \param argv Arguments de la ligne de commande.
+     * \param option Option recherchée.
+     * \param file_path Chemin.
+     */
+    static void set_file_path (int argc, char ** argv, const std::string & option, std::string & file_path);
 };
 
 #endif
