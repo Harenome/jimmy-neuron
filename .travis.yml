@@ -5,7 +5,7 @@ compiler:
 before_install:
     - sudo add-apt-repository -y ppa:dhart/ppa
     - sudo apt-get update -q
-    - sudo apt-get -y install cxxtest
+    - sudo apt-get -y install cxxtest gnuplot
     - sudo ln -s /usr/bin/cxxtestgen.py /usr/bin/cxxtestgen
 script:
     - make && make tests

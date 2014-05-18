@@ -13,7 +13,7 @@ Pré-requis
 #### Minimum
 ```bash
 $ yum groupinstall "Development Tools"
-$ yum install g++ man-pages
+$ yum install g++ man-pages gnuplot
 ```
 
 #### Tests
@@ -25,7 +25,7 @@ $ yum install cxxtest cxxtest-doc
 #### Minimum
 ```bash
 $ apt-get update
-$ apt-get install build-essential
+$ apt-get install build-essential gnuplot
 ```
 
 #### Tests
