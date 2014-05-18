@@ -33,7 +33,7 @@ static inline void print_help (const char * program_name)
 
 static inline void print_version (void)
 {
-    std::cout << "Jimmy neuron, version 0" << std::endl;
+    std::cout << "Jimmy neuron, version 1.0" << std::endl;
     std::cout << "Written by MEYER Jérémy, RANAIVOARIVONY RAZANAJATO Harenome" << std::endl;
 }
 
