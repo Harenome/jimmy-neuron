@@ -15,20 +15,31 @@
 #include "neuron_network.hpp"
 
 ////////////////////////////////////////////////////////////////////////////////
-// Variables et fonctions statiques.
+// Fonctions statiques.
 ////////////////////////////////////////////////////////////////////////////////
 
-const double neuron_network::_DEFAULT_EPSILON = std::numeric_limits<double>::epsilon ();
-double neuron_network::_EPSILON = neuron_network::_DEFAULT_EPSILON;
+std::list<bool> neuron_network::FALSE_FALSE;
+std::list<bool> neuron_network::FALSE_TRUE;
+std::list<bool> neuron_network::TRUE_FALSE;
+std::list<bool> neuron_network::TRUE_TRUE;
 
-double neuron_network::epsilon (void)
+void neuron_network::init_lists (void)
 {
-    return neuron_network::_EPSILON;
-}
+    neuron_network::FALSE_FALSE.clear ();
+    neuron_network::FALSE_FALSE.push_back (false);
+    neuron_network::FALSE_FALSE.push_back (false);
 
-void neuron_network::set_epsilon (double epsilon)
-{
-    neuron_network::_EPSILON = epsilon;
+    neuron_network::FALSE_TRUE.clear ();
+    neuron_network::FALSE_TRUE.push_back (false);
+    neuron_network::FALSE_TRUE.push_back (true);
+
+    neuron_network::TRUE_FALSE.clear ();
+    neuron_network::TRUE_FALSE.push_back (true);
+    neuron_network::TRUE_FALSE.push_back (false);
+
+    neuron_network::TRUE_TRUE.clear ();
+    neuron_network::TRUE_TRUE.push_back (true);
+    neuron_network::TRUE_TRUE.push_back (true);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -43,14 +54,6 @@ neuron_network::neuron_network (const neuron_network & x)
 : _out (x._out)
 {
     _head = x._head;
-}
-
-neuron_network::neuron_network (const neuron & a, const neuron & b, const neuron & c, const neuron & out)
-: _out (out)
-{
-    _head.push_back (a);
-    _head.push_back (b);
-    _head.push_back (c);
 }
 
 neuron_network::neuron_network (const std::vector<neuron> head, const neuron & out)
@@ -102,6 +105,11 @@ bool neuron_network::attempt (const std::list<bool> & inputs) const
     return _out.attempt (inner_inputs);
 }
 
+neuron_network_size_type neuron_network::head_neurons_number (void) const
+{
+    return _head.size ();
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 // Modificateurs.
 ////////////////////////////////////////////////////////////////////////////////
@@ -134,10 +142,10 @@ neuron_network & neuron_network::operator= (neuron_network x)
 
 std::ostream & neuron_network::write_to (std::ostream & os) const
 {
-    os << "Out: " << _out << std::endl;
-    os << "Head: " << _head.size () << " neurons:" << std::endl;
+    os << "Out:\n\t" << _out << std::endl;
+    os << "Head: " << _head.size () << " neurons:";
     for (neuron_network_const_iterator it = _head.begin (); it != _head.end (); ++it)
-        os << " " << * it;
+        os << "\n\t" << * it;
     return os;
 }
 
