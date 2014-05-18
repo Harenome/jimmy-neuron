@@ -20,6 +20,7 @@
 #include "neuron_network.hpp"
 #include "neuron_network_fitness.hpp"
 #include "colony.hpp"
+#include "plot.hpp"
 
 int main (int argc, char ** argv)
 {
@@ -37,14 +38,25 @@ int main (int argc, char ** argv)
 
     truth_table exclusive_or (false, true, true, false);
     neuron_network_fitness fitness (exclusive_or);
-    colony c (fitness, 100);
+    colony c (fitness, 5);
 
+    std::vector<double> best;
+    std::vector<double> mean;
     for (unsigned int i = 0; ! c.has_fit_network () && i < 2000; ++i)
+    {
         c.turn ();
+        best.push_back (c.best_fitness ());
+        mean.push_back (c.mean_fitness ());
+    }
+    best.push_back (c.best_fitness ());
+    mean.push_back (c.mean_fitness ());
 
     neuron_network n = c.best_network ();
     std::cout << c.generations_count () << " generations" << std::endl;
     std::cout << n << std::endl;
+
+    plot p (best, mean);
+    p.display ();
 
     return 0;
 }

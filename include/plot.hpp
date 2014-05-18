@@ -15,11 +15,57 @@
 #ifndef __PLOT_HPP__
 #define __PLOT_HPP__
 
+#include <vector>
+#include <fstream>
+#include <iostream>
+#include <stdio.h>
+
+////////////////////////////////////////////////////////////////////////////////
+// Typedefs.
+////////////////////////////////////////////////////////////////////////////////
+
+typedef std::vector<double> double_vector;
+
+////////////////////////////////////////////////////////////////////////////////
+// Classe.
+////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * \brief Interaction avec GNUPlot.
+ */
 class plot
 {
 public:
+    ////////////////////////////////////////////////////////////////////////////
+    // Constructeurs et destructeurs.
+    ////////////////////////////////////////////////////////////////////////////
+    /**
+     * \brief Constructeur.
+     */
     plot (void);
+
+    /**
+     * \brief Constructeur.
+     * \param best_fitnesses Meilleurs fitnesses.
+     * \param mean_fitnesses Moyennes.
+     */
+    plot (const double_vector & best_fitnesses, const double_vector & mean_fitnesses);
+
+    /**
+     * \brief Destructeur.
+     */
     ~plot (void);
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Divers.
+    ////////////////////////////////////////////////////////////////////////////
+    /**
+     * \brief Lancer et afficher GNUPlot.
+     */
+    void display (void);
+private:
+    double_vector _best;    /**<- Meilleures fitnesses. */
+    double_vector _mean;    /**<- Moyennes. */
 };
 
 #endif /* __PLOT_HPP__ */
