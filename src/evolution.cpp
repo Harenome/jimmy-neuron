@@ -81,37 +81,32 @@ neuron_network evolution::clone (const neuron_network & n)
     return clone;
 }
 
-static inline neuron _mean_neuron (const neuron & a, const neuron & b)
-{
-    neuron new_neuron (a);
-    for (unsigned int i = 0; i < a.weight_number (); ++i)
-    {
-        new_neuron[i] += b[i];
-        new_neuron[i] /= 2;
-    }
-
-    return new_neuron;
-}
-
-static inline std::vector<neuron> _mean_head (const neuron_network & a, const neuron_network & b)
+static inline std::vector<neuron> _pick_head_randomly (const neuron_network & a, const neuron_network & b)
 {
     std::vector<neuron> head_a = a.head_neurons ();
-    std::vector<neuron> head_b = a.head_neurons ();
+    std::vector<neuron> head_b = b.head_neurons ();
 
     std::vector<neuron> son_head;
     for (unsigned int i = 0; i < head_a.size (); ++i)
     {
-        neuron n = _mean_neuron (head_a[i], head_b[i]);
+        bool choose_a = utilities::random_bool ();
+        neuron n = choose_a ? head_a[i] : head_b[i];
         son_head.push_back (n);
     }
 
     return son_head;
 }
 
+static inline neuron _pick_out_randomly (const neuron_network & a, const neuron_network & b)
+{
+    bool choose_a = utilities::random_bool ();
+    return choose_a ? a.out_neuron () : b.out_neuron ();
+}
+
 neuron_network evolution::cross_over (const neuron_network & a, const neuron_network & b)
 {
-    std::vector<neuron> son_head = _mean_head (a, b);
-    neuron son_out = _mean_neuron (a.out_neuron (), b.out_neuron ());
+    std::vector<neuron> son_head = _pick_head_randomly (a, b);
+    neuron son_out = _pick_out_randomly (a, b);
 
     neuron_network son (son_head, son_out);
 
