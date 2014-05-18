@@ -20,6 +20,7 @@
 #include "neuron_network.hpp"
 #include "neuron_network_fitness.hpp"
 #include "colony.hpp"
+#include "plot.hpp"
 
 static inline void print_help (const char * program_name)
 {
@@ -84,15 +85,26 @@ int main (int argc, char ** argv)
     colony c (fitness, population_size, weight_range);
     /* c.set_purge_strategy (COLONY_PURGE_RANDOMLY); */
 
+    std::vector<double> best;
+    std::vector<double> mean;
+
+    /* Pour la génération 0. */
+    best.push_back (c.best_fitness ());
+    mean.push_back (c.mean_fitness ());
+
     for (unsigned int i = 0; ! c.has_fit_network () && i < max_generations; ++i)
     {
         c.turn ();
-        std::cout << "Best: " << c.best_fitness () << ", Mean: " << c.mean_fitness () << std::endl;
+        best.push_back (c.best_fitness ());
+        mean.push_back (c.mean_fitness ());
     }
 
     neuron_network n = c.best_network ();
     std::cout << c.generations_count () << " generations" << std::endl;
     std::cout << n << std::endl;
+
+    plot p (best, mean);
+    p.display ();
 
     return 0;
 }
