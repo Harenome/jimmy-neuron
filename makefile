@@ -85,8 +85,12 @@ cleanarchives: clean_archives
 clean_archives:
 		@rm -rf $(shell basename `pwd`)_*.tar.gz
 
+cleantmp: clean_tmp
+clean_tmp:
+		@rm -rf /tmp/jimmy*neuron*
+
 cleanall: clean_all
-clean_all: clean clean_doc clean_tests clean_archives
+clean_all: clean clean_doc clean_tests clean_archives clean_tmp
 		@echo "Super clean."
 
 archive:
